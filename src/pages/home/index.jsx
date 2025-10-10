@@ -590,8 +590,6 @@ function App() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Title level={2}>Lubanno7UniverSheet 组件demo</Title>
-      
       {/* 表格容器 */}
       <Card title="表格显示区域" style={{ marginBottom: '20px' }}>
         <div ref={containerRef} style={{ border: '1px solid #d9d9d9' }} />
