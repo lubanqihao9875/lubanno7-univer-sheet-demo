@@ -27,6 +27,7 @@ const { TextArea } = Input;
 function App() {
   const containerRef = useRef(null);
   const sheetInstanceRef = useRef(null);
+  const logIdCounterRef = useRef(1);
   const [eventLogs, setEventLogs] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [exposedMethods, setExposedMethods] = useState({});
@@ -165,7 +166,7 @@ function App() {
   const addEventLog = (eventName, data) => {
     const timestamp = new Date().toLocaleTimeString();
     const logEntry = {
-      id: Date.now(),
+      id: logIdCounterRef.current++,
       timestamp,
       eventName,
       data: JSON.stringify(data, null, 2)
@@ -519,8 +520,8 @@ function App() {
     },
 
     dispose: () => {
-      if (exposedMethods.dispose) {
-        exposedMethods.dispose();
+      if (sheetInstanceRef.current) {
+        sheetInstanceRef.current.dispose();
         addEventLog('dispose', {});
         message.success('销毁表格实例');
         setExposedMethods({});
